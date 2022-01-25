@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	   <!-- <template id="qr_report_fe_invoice_document" inherit_id="l10n_ar_report_fe.report_fe_invoice_document"> -->
+	   <template id="qr_report_fe_invoice_document" inherit_id="l10n_ar.report_invoice_document">
+		<xpath expr="//div[@name='footer_left_column']/.." position="replace">
+
+			<div class="row">
+				<div name="footer_left_column" class="col-8 text-left">
+					<t t-if="o.journal_id.l10n_ar_afip_pos_system != 'II_IM'">
+		                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', o.l10n_ar_afip_texto_modificado_qr, 180, 180)" style="border:0; padding: 10px;width:130px;height:130px"/>
+                        <img t-att-src="'/odoo_e_qr_fe/static/afip.png'" t-att-alt="AFIP" t-att-title="AFIP" style="height:100px" />
+					</t>
+				</div>
+				<div name="footer_right_column" class="col-4 text-right">
+					<div name="pager" t-if="report_type == 'pdf'">
+					Página: <span class="page"/> / <span class="topage"/>
+					</div>
+					<t t-if="o.journal_id.l10n_ar_afip_pos_system != 'II_IM'">
+						<div>
+							<b>CAE N°:</b> <span t-field="o.l10n_ar_afip_auth_code"/>
+						</div>
+						<div>
+							<b>Fecha de Vto. de CAE: </b> <span t-field="o.l10n_ar_afip_auth_code_due"/>
+						</div>
+					</t>
+				</div>
+			</div>
+		</xpath>
+	    </template>
+	</data>
+</odoo>
